@@ -9,9 +9,12 @@ import 'package:github_api_project/styling/styling.dart';
 
 final GlobalKey<NavigatorState> navigatorKey = GlobalKey<NavigatorState>();
 
-void main() {
-  configureDependencies();
-  runApp(MyApp(navigatorKey: navigatorKey,));
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await configureDependencies();
+  runApp(MyApp(
+    navigatorKey: navigatorKey,
+  ));
 }
 
 class MyApp extends StatelessWidget {

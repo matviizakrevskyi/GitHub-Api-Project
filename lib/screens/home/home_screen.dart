@@ -30,10 +30,10 @@ class HomeScreen extends StatelessWidget {
                   changeFocus: (bool isFocused) => cubit.changeFocus(isFocused),
                 ),
               ),
-              const Padding(
-                padding: EdgeInsets.only(top: 4, left: 16, bottom: 4),
+              Padding(
+                padding: const EdgeInsets.only(top: 4, left: 16, bottom: 4),
                 child: Text(
-                  "Search History",
+                  state.currentItems.isEmpty ? "Search History" : "What we have found",
                   style: CustomTextSyles.mainWithPrimaryColor,
                   textAlign: TextAlign.start,
                 ),
@@ -47,7 +47,13 @@ class HomeScreen extends StatelessWidget {
                             isFavorite: item.isFavorite,
                             onFavoriteButton: () => cubit.makeFavorite(item));
                       })
-                    : Container(),
+                    : ListView.builder(itemCount: state.historyItems.length ,itemBuilder: (context, index) {
+                        final item = state.historyItems[index];
+                        return RepoItemWidget(
+                            name: item.name,
+                            isFavorite: item.isFavorite,
+                            onFavoriteButton: () => cubit.makeFavorite(item));
+                      })
               )
             ],
           );

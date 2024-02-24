@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_api_project/domain/repo.dart';
 import 'package:github_api_project/main.dart';
+import 'package:github_api_project/usecases/get_history.dart';
 import 'package:github_api_project/usecases/search_repos.dart';
 import 'package:injectable/injectable.dart';
 
@@ -10,10 +11,15 @@ part 'home_state.dart';
 @injectable
 class HomeCubit extends Cubit<HomeState> {
   final SearchReposUseCase _searchReposUseCase;
+  final GetReposToHistoryUseCase _getReposToHistoryUseCase;
 
   TextEditingController textController = TextEditingController();
 
-  HomeCubit(this._searchReposUseCase) : super(HomeState([], [], false, false));
+  HomeCubit(this._searchReposUseCase, this._getReposToHistoryUseCase)
+      : super(HomeState([], [], false, false)) {
+    final reposFromHistory = _getReposToHistoryUseCase.execute();
+    emit(state.copyWith(historyItems: reposFromHistory));
+  }
 
   onFavorite() {
     navigatorKey.currentState?.pushNamed('/favorites');
@@ -27,9 +33,7 @@ class HomeCubit extends Cubit<HomeState> {
     }
   }
 
-  makeFavorite(Repo item) {
-    
-  }
+  makeFavorite(Repo item) {}
 
   changeFocus(bool isFocused) {
     emit(state.copyWith(isFocused: isFocused));
