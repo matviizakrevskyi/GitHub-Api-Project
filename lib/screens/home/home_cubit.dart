@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_api_project/usecases/search_repos.dart';
 import 'package:injectable/injectable.dart';
@@ -8,7 +9,9 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeState> {
   final SearchReposUseCase _searchReposUseCase;
 
-  HomeCubit(this._searchReposUseCase) : super(HomeState([]));
+  TextEditingController textController = TextEditingController();
+
+  HomeCubit(this._searchReposUseCase) : super(HomeState([], false));
 
   onFavorite() {
     _searchReposUseCase.execute();
@@ -16,5 +19,9 @@ class HomeCubit extends Cubit<HomeState> {
 
   search() {
     _searchReposUseCase.execute();
+  }
+
+  changeFocus(bool isFocused) {
+    emit(state.copyWith(isFocused: isFocused));
   }
 }

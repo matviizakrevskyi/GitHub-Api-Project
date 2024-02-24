@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_api_project/di/injection.dart';
 import 'package:github_api_project/screens/home/home_cubit.dart';
 import 'package:github_api_project/screens/home/home_screen.dart';
+import 'package:github_api_project/styling/styling.dart';
 
 void main() {
   configureDependencies();
@@ -18,8 +19,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+        colorScheme: CustomColors.colorSheme
       ),
       routes: {
         '/': (context) => BlocProvider<HomeCubit>(
