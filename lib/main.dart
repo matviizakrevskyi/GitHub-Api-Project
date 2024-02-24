@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_api_project/di/injection.dart';
 import 'package:github_api_project/screens/home/home_cubit.dart';
 import 'package:github_api_project/screens/home/home_screen.dart';
 
 void main() {
+  configureDependencies();
   runApp(const MyApp());
 }
 
@@ -20,12 +22,11 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       routes: {
-        '/': (context) => BlocProvider(
-              create: (_) => HomeCubit(),
+        '/': (context) => BlocProvider<HomeCubit>(
+              create: (BuildContext context) => getIt.get(),
               child: HomeScreen(),
             )
       },
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
     );
   }
 }

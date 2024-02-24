@@ -35,8 +35,9 @@ class _AppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12),
+      padding: const EdgeInsets.only(left: 16, right: 16, bottom: 12, top: 62),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SizedBox(
             width: 44,
@@ -53,7 +54,7 @@ class _AppBar extends StatelessWidget {
                 decoration: const BoxDecoration(
                     color: Colors.blue, borderRadius: BorderRadius.all(Radius.circular(6))),
                 child: SizedBox(
-                    width: 20, height: 20, child: SvgPicture.asset('assets/icons/image.svg'))),
+                    width: 20, height: 20, child: SvgPicture.asset('assets/ic_favorite.svg'))),
           )
         ],
       ),
