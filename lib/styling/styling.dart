@@ -21,7 +21,6 @@ abstract class CustomTextSyles {
       fontFamily: 'Raleway',
       fontSize: 16,
       fontWeight: FontWeight.w600,
-      height: 1.9,
       letterSpacing: 0,
       color: CustomColors.textPrimaryColor);
 
@@ -29,7 +28,6 @@ abstract class CustomTextSyles {
       fontFamily: 'Raleway',
       fontSize: 16,
       fontWeight: FontWeight.w600,
-      height: 1.9,
       letterSpacing: 0,
       color: CustomColors.accentPrimary);
 
@@ -44,7 +42,6 @@ abstract class CustomTextSyles {
       fontFamily: 'Raleway',
       fontSize: 14,
       fontWeight: FontWeight.w400,
-      height: 2,
       letterSpacing: 0,
       color: CustomColors.placeholder);
 }

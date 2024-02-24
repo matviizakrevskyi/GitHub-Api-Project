@@ -32,7 +32,11 @@ class HomeScreen extends StatelessWidget {
               ),
               const Padding(
                 padding: EdgeInsets.only(top: 4, left: 16, bottom: 4),
-                child: Text("Search History", style: CustomTextSyles.mainWithPrimaryColor, textAlign: TextAlign.start,),
+                child: Text(
+                  "Search History",
+                  style: CustomTextSyles.mainWithPrimaryColor,
+                  textAlign: TextAlign.start,
+                ),
               ),
               RepoItemWidget(name: "First item", isFavorite: true, onFavoriteButton: () {}),
               RepoItemWidget(

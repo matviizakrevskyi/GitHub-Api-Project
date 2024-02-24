@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:github_api_project/main.dart';
 import 'package:github_api_project/usecases/search_repos.dart';
 import 'package:injectable/injectable.dart';
 
@@ -14,7 +15,7 @@ class HomeCubit extends Cubit<HomeState> {
   HomeCubit(this._searchReposUseCase) : super(HomeState([], false));
 
   onFavorite() {
-    _searchReposUseCase.execute();
+    navigatorKey.currentState?.pushNamed('/favorites');
   }
 
   search() {
