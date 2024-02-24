@@ -38,11 +38,17 @@ class HomeScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
               ),
-              RepoItemWidget(name: "First item", isFavorite: true, onFavoriteButton: () {}),
-              RepoItemWidget(
-                  name: "Second item asas kbdadscnaosdmoas;omd;',asdmccasnd skcdac;macasl",
-                  isFavorite: false,
-                  onFavoriteButton: () {}),
+              Expanded(
+                child: state.currentItems.isNotEmpty
+                    ? ListView.builder(itemCount: state.currentItems.length ,itemBuilder: (context, index) {
+                        final item = state.currentItems[index];
+                        return RepoItemWidget(
+                            name: item.name,
+                            isFavorite: item.isFavorite,
+                            onFavoriteButton: () => cubit.makeFavorite(item));
+                      })
+                    : Container(),
+              )
             ],
           );
         },
