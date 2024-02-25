@@ -7,4 +7,7 @@ class Repo {
   Repo(this.name, [this.isFavorite = false]);
 
   RepoEntity get toEntityModel => RepoEntity(name, isFavorite);
+
+  Repo copyWith({String? name, bool? isFavorite}) =>
+      Repo(name ?? this.name, isFavorite ?? this.isFavorite);
 }

@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:github_api_project/screens/favorites/favorites_cubit.dart';
 import 'package:github_api_project/screens/favorites/favorites_state.dart';
+import 'package:github_api_project/screens/widgets/repo_item_widget.dart';
 import 'package:github_api_project/styling/styling.dart';
 
 class FavoritesScreen extends StatelessWidget {
@@ -22,24 +23,39 @@ class FavoritesScreen extends StatelessWidget {
                 thickness: 4,
                 color: CustomColors.layer,
               ),
-              state.items.isEmpty
-                  ? const Expanded(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(horizontal: 16),
-                          child: Text(
-                            "You have no favorites.\nClick on star while searching to add first favorite",
-                            style: CustomTextSyles.placeholder,
-                            maxLines: 2,
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                      ),
-                    )
-                  : Container(),
               const SizedBox(
-                height: 55,
-              )
+                height: 20,
+              ),
+              state.isLoading
+                  ? const CircularProgressIndicator(
+                      color: CustomColors.accentPrimary,
+                    )
+                  : state.items.isEmpty
+                      ? const Expanded(
+                          child: Center(
+                            child: Padding(
+                              padding: EdgeInsets.only(left: 16, right: 16, bottom: 80),
+                              child: Text(
+                                "You have no favorites.\nClick on star while searching to add first favorite",
+                                style: CustomTextSyles.placeholder,
+                                maxLines: 2,
+                                textAlign: TextAlign.center,
+                              ),
+                            ),
+                          ),
+                        )
+                      : Expanded(
+                          child: ListView.builder(
+                              padding: const EdgeInsets.all(0),
+                              itemCount: state.items.length,
+                              itemBuilder: (context, index) {
+                                final item = state.items[index];
+                                return RepoItemWidget(
+                                    name: item.name,
+                                    isFavorite: item.isFavorite,
+                                    onFavoriteButton: () => cubit.deleteFromFavorites(item));
+                              }),
+                        ),
             ],
           ),
         );

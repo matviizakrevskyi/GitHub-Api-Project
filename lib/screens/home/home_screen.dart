@@ -16,7 +16,7 @@ class HomeScreen extends StatelessWidget {
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _AppBar(title: "Github repos list", onFavorites: () => cubit.onFavorite()),
+              _AppBar(title: "Github repos list", onFavorites: () => cubit.toFavorites()),
               const Divider(
                 thickness: 4,
                 color: CustomColors.layer,
@@ -38,23 +38,48 @@ class HomeScreen extends StatelessWidget {
                   textAlign: TextAlign.start,
                 ),
               ),
-              Expanded(
-                child: state.currentItems.isNotEmpty
-                    ? ListView.builder(itemCount: state.currentItems.length ,itemBuilder: (context, index) {
-                        final item = state.currentItems[index];
-                        return RepoItemWidget(
-                            name: item.name,
-                            isFavorite: item.isFavorite,
-                            onFavoriteButton: () => cubit.makeFavorite(item));
-                      })
-                    : ListView.builder(itemCount: state.historyItems.length ,itemBuilder: (context, index) {
-                        final item = state.historyItems[index];
-                        return RepoItemWidget(
-                            name: item.name,
-                            isFavorite: item.isFavorite,
-                            onFavoriteButton: () => cubit.makeFavorite(item));
-                      })
-              )
+              const SizedBox(
+                height: 20,
+              ),
+              state.isLoading
+                  ? const Expanded(
+                      child: Center(
+                          child: CircularProgressIndicator(
+                      color: CustomColors.accentPrimary,
+                    )))
+                  : Expanded(
+                      child: state.currentItems.isNotEmpty
+                          ? ListView.builder(
+                              padding: const EdgeInsets.all(0),
+                              itemCount: state.currentItems.length,
+                              itemBuilder: (context, index) {
+                                final item = state.currentItems[index];
+                                return RepoItemWidget(
+                                    name: item.name,
+                                    isFavorite: item.isFavorite,
+                                    onFavoriteButton: () => cubit.onFavorite(item));
+                              })
+                          : state.historyItems.isEmpty
+                              ? const Center(
+                                  child: Padding(
+                                    padding: EdgeInsets.only(left: 16, right: 16, bottom: 80),
+                                    child: Text(
+                                      "You have empty history.\nClick on search to start journey!",
+                                      style: CustomTextSyles.placeholder,
+                                      maxLines: 2,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ),
+                                )
+                              : ListView.builder(
+                                  itemCount: state.historyItems.length,
+                                  itemBuilder: (context, index) {
+                                    final item = state.historyItems[index];
+                                    return RepoItemWidget(
+                                        name: item.name,
+                                        isFavorite: item.isFavorite,
+                                        onFavoriteButton: () => cubit.onFavorite(item));
+                                  })),
             ],
           );
         },
