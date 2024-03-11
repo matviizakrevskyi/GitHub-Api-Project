@@ -61,6 +61,7 @@ class HomeScreen extends StatelessWidget {
                               ),
                             )
                           : ListView.builder(
+                              padding: const EdgeInsets.only(bottom: 16),
                               itemCount: state.items.length,
                               itemBuilder: (context, index) {
                                 final item = state.items[index];
