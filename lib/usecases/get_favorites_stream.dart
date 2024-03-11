@@ -1,14 +1,14 @@
-import 'package:github_api_project/datasources/hive_favorites_datasource.dart';
+import 'package:github_api_project/datasources/hive_repos_datasource.dart';
 import 'package:github_api_project/domain/repo.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class GetFavoritesStreamUseCase {
-  final HiveFavoritesDatasource _favoritesDatasource;
+  final HiveReposDatasource _reposDatasource;
 
-  GetFavoritesStreamUseCase(this._favoritesDatasource);
+  GetFavoritesStreamUseCase(this._reposDatasource);
 
   Stream<List<Repo>> execute() {
-    return _favoritesDatasource.favoritesStream;
+    return _reposDatasource.favoritesStream;
   }
 }

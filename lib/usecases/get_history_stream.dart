@@ -3,12 +3,12 @@ import 'package:github_api_project/domain/repo.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-class GetReposToHistoryUseCase {
+class GetHistoryStreamUseCase {
   final HiveReposDatasource _reposDatasource;
 
-  GetReposToHistoryUseCase(this._reposDatasource);
+  GetHistoryStreamUseCase(this._reposDatasource);
 
-  List<Repo> execute() {
-    return _reposDatasource.historyRepos;
+  Stream<List<Repo>> execute() {
+    return _reposDatasource.historyStream;
   }
 }

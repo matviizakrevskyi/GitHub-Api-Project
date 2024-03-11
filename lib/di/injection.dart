@@ -22,12 +22,8 @@ Future _initHive() async {
 
   Hive.registerAdapter(RepoEntityAdapter());
 
-  if (!getIt.isRegistered<Box<RepoEntity>>(instanceName: historyBoxKey)) {
-    final box = await Hive.openBox<RepoEntity>(historyBoxKey);
-    getIt.registerSingleton<Box<RepoEntity>>(box, instanceName: historyBoxKey);
-  }
-  if (!getIt.isRegistered<Box<RepoEntity>>(instanceName: favoritesBoxKey)) {
-    final box = await Hive.openBox<RepoEntity>(favoritesBoxKey);
-    getIt.registerSingleton<Box<RepoEntity>>(box, instanceName: favoritesBoxKey);
+  if (!getIt.isRegistered<Box<RepoEntity>>(instanceName: reposBoxKey)) {
+    final box = await Hive.openBox<RepoEntity>(reposBoxKey);
+    getIt.registerSingleton<Box<RepoEntity>>(box, instanceName: reposBoxKey);
   }
 }

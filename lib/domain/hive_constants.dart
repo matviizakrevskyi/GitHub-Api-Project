@@ -1,2 +1,1 @@
-const historyBoxKey = 'HistoryBox';
-const favoritesBoxKey = 'FavoritesBox';
+const reposBoxKey = 'ReposBox';

@@ -1,20 +1,15 @@
-import 'package:github_api_project/datasources/hive_history_datasource.dart';
+import 'package:github_api_project/datasources/hive_repos_datasource.dart';
 import 'package:github_api_project/datasources/repos_datasource.dart';
-import 'package:github_api_project/domain/repo.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 class SearchReposUseCase {
-  final HiveHistoryDatasource _historyDatasource;
+  final HiveReposDatasource _reposDatasource;
 
-  SearchReposUseCase(this._historyDatasource);
+  SearchReposUseCase(this._reposDatasource);
 
-  Future<List<Repo>> execute(String searchText) async {
-    final DataSource dataSource = DataSource();
-
-    final repos = await dataSource.getRepos(searchText);
-    await _historyDatasource.saveRepos(repos);
-
-    return repos;
+  Future<void> execute(String searchText) async {
+    final repos = await ApiDataSource.getRepos(searchText);
+    await _reposDatasource.saveRepos(repos);
   }
 }

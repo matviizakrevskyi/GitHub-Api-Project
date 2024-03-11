@@ -1,16 +1,13 @@
 part of 'home_cubit.dart';
 
 class HomeState {
-  final List<Repo> historyItems;
-  final List<Repo> currentItems;
+  final List<Repo> items;
   final bool isFocused;
   final bool isLoading;
 
-  HomeState(this.historyItems, this.currentItems, this.isFocused, this.isLoading);
+  HomeState(this.items, this.isFocused, this.isLoading);
 
-  HomeState copyWith(
-      {List<Repo>? historyItems, List<Repo>? currentItems, bool? isFocused, bool? isLoading}) {
-    return HomeState(historyItems ?? this.historyItems, currentItems ?? this.currentItems,
-        isFocused ?? this.isFocused, isLoading ?? this.isLoading);
+  HomeState copyWith({List<Repo>? items, bool? isFocused, bool? isLoading}) {
+    return HomeState(items ?? this.items, isFocused ?? this.isFocused, isLoading ?? this.isLoading);
   }
 }

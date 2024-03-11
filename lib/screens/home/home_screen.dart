@@ -33,7 +33,7 @@ class HomeScreen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.only(top: 4, left: 16, bottom: 4),
                 child: Text(
-                  state.currentItems.isEmpty ? "Search History" : "What we have found",
+                  state.items.isEmpty ? "Search History" : "What we have found",
                   style: CustomTextSyles.mainWithPrimaryColor,
                   textAlign: TextAlign.start,
                 ),
@@ -48,38 +48,27 @@ class HomeScreen extends StatelessWidget {
                       color: CustomColors.accentPrimary,
                     )))
                   : Expanded(
-                      child: state.currentItems.isNotEmpty
-                          ? ListView.builder(
-                              padding: const EdgeInsets.all(0),
-                              itemCount: state.currentItems.length,
+                      child: state.items.isEmpty
+                          ? const Center(
+                              child: Padding(
+                                padding: EdgeInsets.only(left: 16, right: 16, bottom: 80),
+                                child: Text(
+                                  "You have empty history.\nClick on search to start journey!",
+                                  style: CustomTextSyles.placeholder,
+                                  maxLines: 2,
+                                  textAlign: TextAlign.center,
+                                ),
+                              ),
+                            )
+                          : ListView.builder(
+                              itemCount: state.items.length,
                               itemBuilder: (context, index) {
-                                final item = state.currentItems[index];
+                                final item = state.items[index];
                                 return RepoItemWidget(
                                     name: item.name,
                                     isFavorite: item.isFavorite,
                                     onFavoriteButton: () => cubit.onFavorite(item));
-                              })
-                          : state.historyItems.isEmpty
-                              ? const Center(
-                                  child: Padding(
-                                    padding: EdgeInsets.only(left: 16, right: 16, bottom: 80),
-                                    child: Text(
-                                      "You have empty history.\nClick on search to start journey!",
-                                      style: CustomTextSyles.placeholder,
-                                      maxLines: 2,
-                                      textAlign: TextAlign.center,
-                                    ),
-                                  ),
-                                )
-                              : ListView.builder(
-                                  itemCount: state.historyItems.length,
-                                  itemBuilder: (context, index) {
-                                    final item = state.historyItems[index];
-                                    return RepoItemWidget(
-                                        name: item.name,
-                                        isFavorite: item.isFavorite,
-                                        onFavoriteButton: () => cubit.onFavorite(item));
-                                  })),
+                              })),
             ],
           );
         },
