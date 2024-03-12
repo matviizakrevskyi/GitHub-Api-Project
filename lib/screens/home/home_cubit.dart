@@ -23,7 +23,7 @@ class HomeCubit extends Cubit<HomeState> {
 
   HomeCubit(this._searchReposUseCase,
       this._putOrDeleteFavoriteRepoUseCase, this._getHistoryStreamUseCase)
-      : super(HomeState([], false, false)) {
+      : super(HomeState([], false, false, true)) {
     _subscription = _getHistoryStreamUseCase.execute().listen((event) {
       emit(state.copyWith(items: event));
     });
@@ -37,7 +37,7 @@ class HomeCubit extends Cubit<HomeState> {
     if (textController.text.isNotEmpty) {
       emit(state.copyWith(isLoading: true));
       await _searchReposUseCase.execute(textController.text);
-      emit(state.copyWith(isLoading: false));
+      emit(state.copyWith(isLoading: false, isHistory: false));
     }
   }
 

@@ -31,9 +31,9 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.only(top: 4, left: 16, bottom: 4),
+                padding: const EdgeInsets.only(top: 8, left: 24, bottom: 4),
                 child: Text(
-                  state.items.isEmpty ? "Search History" : "What we have found",
+                  state.isHistory ? "Search History" : "What we have found",
                   style: CustomTextSyles.mainWithPrimaryColor,
                   textAlign: TextAlign.start,
                 ),

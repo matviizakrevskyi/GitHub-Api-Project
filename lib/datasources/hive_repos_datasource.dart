@@ -14,7 +14,7 @@ class HiveReposDatasource {
   saveRepos(List<Repo> repos) async {
     clearNotLiked();
     clearHistory();
-    for (var repo in repos) {
+    await Future.forEach(repos, (repo) {
       final savedRepo = _reposBox.get(repo.id);
       if (savedRepo == null) {
         _reposBox.put(repo.id, repo.toEntityModel);
@@ -23,7 +23,7 @@ class HiveReposDatasource {
             repo.copyWith(isFavorite: savedRepo.isFavorite, isFromHistory: true).toEntityModel);
         savedRepo.save();
       }
-    }
+    });
   }
 
   clearNotLiked() {
@@ -70,10 +70,7 @@ class HiveReposDatasource {
         .watch()
         .debounceTime(const Duration(milliseconds: 500))
         .map((event) {
-          final list =
-              _reposBox.values.where((e) => e.isFromHistory).map((e) => e.toDomainModel).toList();
-          list.sort((a, b) => a.dateOfAdding.compareTo(b.dateOfAdding));
-          return list;
+          return historyRepos;
         })
         .startWith(historyRepos)
         .distinct();
