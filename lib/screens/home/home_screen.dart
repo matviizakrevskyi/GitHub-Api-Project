@@ -98,7 +98,7 @@ class _AppBar extends StatelessWidget {
             title,
             style: CustomTextSyles.main,
           ),
-          GestureDetector(
+          InkResponse(
             onTap: onFavorites,
             child: Container(
                 width: 44,

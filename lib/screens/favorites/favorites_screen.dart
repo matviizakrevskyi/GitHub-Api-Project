@@ -77,7 +77,7 @@ class _AppBar extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          GestureDetector(
+          InkResponse(
             onTap: onBack,
             child: Container(
                 width: 44,
