@@ -51,6 +51,9 @@ dependencies:
 dev_dependencies:
   injectable_generator: 2.4.1
   build_runner: 2.4.8
+  mocktail: 1.0.4
+  hive_test: 1.0.1
+  bloc_test: 9.1.7
   flutter_test:
     sdk: flutter
 
