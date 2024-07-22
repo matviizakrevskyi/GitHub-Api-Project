@@ -41,6 +41,7 @@ class CustomTextField extends StatelessWidget {
                 height: 2,
                 width: 2,
                 child: IconButton(
+                  key: const Key("SearchButtonKey"),
                   onPressed: onSearch,
                   icon: SvgPicture.asset(
                     'assets/ic_search.svg',
