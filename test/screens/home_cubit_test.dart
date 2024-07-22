@@ -1,4 +1,6 @@
+import 'package:bloc_test/bloc_test.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:github_api_project/domain/repo.dart';
 import 'package:github_api_project/screens/home/home_cubit.dart';
 import 'package:github_api_project/usecases/get_history_stream.dart';
 import 'package:github_api_project/usecases/put_delete_favorites.dart';
@@ -36,12 +38,23 @@ void main() {
       expect(homeCubit.state.isHistory, true);
     });
 
-    // blocTest<HomeCubit, HomeState>('emitting test', build: () {
-    //   when(() => mockGetHistoryStreamUseCase.execute())
-    //       .thenAnswer((_) => Stream.value([Repo('1', 'Repo 1', 20230720, true, true)]));
-    //   return homeCubit;
-    // }, act: (cubit) {
-    //   cubit._subscription
-    // });
+    blocTest<HomeCubit, HomeState>(
+      'emitting test',
+      build: () {
+        when(() => mockGetHistoryStreamUseCase.execute())
+            .thenAnswer((_) => Stream.value([Repo("id", "name", 10)]));
+        return homeCubit;
+      },
+      act: (cubit) {
+        return cubit.initializeHistoryStream();
+      },
+      expect: () => <HomeState>[
+        HomeState([Repo("id", "name", 10)], false, false, true)
+      ],
+    );
+
+    tearDown(() {
+      homeCubit.close();
+    });
   });
 }

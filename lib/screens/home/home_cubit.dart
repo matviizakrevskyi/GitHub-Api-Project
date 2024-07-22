@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:github_api_project/domain/repo.dart';
@@ -21,9 +22,13 @@ class HomeCubit extends Cubit<HomeState> {
 
   TextEditingController textController = TextEditingController();
 
-  HomeCubit(this._searchReposUseCase,
-      this._putOrDeleteFavoriteRepoUseCase, this._getHistoryStreamUseCase)
-      : super(HomeState([], false, false, true)) {
+  HomeCubit(
+      this._searchReposUseCase, this._putOrDeleteFavoriteRepoUseCase, this._getHistoryStreamUseCase)
+      : super(const HomeState([], false, false, true)) {
+    initializeHistoryStream();
+  }
+
+  initializeHistoryStream() {
     _subscription = _getHistoryStreamUseCase.execute().listen((event) {
       emit(state.copyWith(items: event));
     });
